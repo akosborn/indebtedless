@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="247f3f9b-67ef-4fa6-9a06-078749d9b599" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/Calculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/Calculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/DebtPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/DebtPanel.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/calculator/MediaGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/MediaGallery.tsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -76,8 +72,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calculator/MediaGallery.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="25" column="136" lean-forward="true" selection-start-line="25" selection-start-column="136" selection-end-line="25" selection-end-column="136" />
+            <state relative-caret-position="-408">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -117,8 +113,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="310" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="471" />
     <option name="y" value="-8" />
     <option name="width" value="1291" />
     <option name="height" value="1056" />
@@ -197,25 +193,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1589650422276</updated>
-      <workItem from="1589650423510" duration="15511000" />
+      <workItem from="1589650423510" duration="16811000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15511000" />
+    <option name="totallyTimeSpent" value="16811000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="403" y="673" width="1291" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16491044" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24980047" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.12374582" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.12374582" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
@@ -366,8 +362,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calculator/MediaGallery.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="25" column="136" lean-forward="true" selection-start-line="25" selection-start-column="136" selection-end-line="25" selection-end-column="136" />
+        <state relative-caret-position="-408">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
