@@ -1,5 +1,9 @@
 import React from "react";
-import {Form, Input, Label} from "semantic-ui-react";
+import FormModal from "./Modal";
+import {Debt} from "../models/Debt";
+import {Button, Card, Grid, Icon} from "semantic-ui-react";
+import styles from './DebtPanel.module.css';
+import {sumBy} from 'lodash';
 
 interface Props {
    balance: number;
@@ -8,37 +12,43 @@ interface Props {
    setPayment: (v: number) => void;
    rate: number;
    setRate: (v: number) => void;
+   debts: Debt[];
+   addDebt: (d: Debt) => void;
+   deleteDebt: (name: string) => void;
 }
 
 function DebtPanel(props: Props) {
    return (
       <div>
-         <Form>
-            <Form.Field>
-               <Input labelPosition='right' type='number' placeholder='Balance'>
-                  <Label basic>$</Label>
-                  <input value={props.balance} onChange={e => props.setBalance(e.target.valueAsNumber)} />
-                  <Label>.00</Label>
-               </Input>
-            </Form.Field>
-            <Form.Field>
-               <Input labelPosition='right' type='number' placeholder='Min Payment'>
-                  <Label basic>$</Label>
-                  <input value={props.payment} onChange={e => props.setPayment(e.target.valueAsNumber)} />
-                  <Label>.00</Label>
-               </Input>
-            </Form.Field>
-            <Form.Field>
-               <Input
-                  value={props.rate}
-                  type='number'
-                  onChange={e => props.setRate(e.target.valueAsNumber)}
-                  label={{ basic: true, content: '%' }}
-                  labelPosition='right'
-                  placeholder='Interest rate'
-               />
-            </Form.Field>
-         </Form>
+         <Card className={styles.card}>
+            <Card.Content header='Loans' />
+            {props.debts.map(d =>
+               <Card.Content>
+                  <Grid columns={2}>
+                     <Grid.Column width={10}>
+                        <div>{d.name}</div>
+                        <div>${d.principal} at {d.rate}%</div>
+                     </Grid.Column>
+                     <Grid.Column width={6} style={{ verticalAlign: 'middle', display: 'flex', justifyContent: 'flex-end'}}>
+                        <Button icon>
+                           <Icon name='edit' />
+                        </Button>
+                        <Button icon onClick={() => props.deleteDebt(d.name)}>
+                           <Icon name='delete' />
+                        </Button>
+                     </Grid.Column>
+                  </Grid>
+               </Card.Content>
+            )}
+            <Card.Content extra style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+               <span>
+                  ${sumBy(props.debts, v => v.principal)}
+               </span>
+               <span>
+                  <FormModal addDebt={props.addDebt}/>
+               </span>
+            </Card.Content>
+         </Card>
       </div>
    );
 }

@@ -1,6 +1,7 @@
 export interface Debt {
-   startBalance: number;
+   name: string;
+   principal: number;
    rate: number;
-   startDate: Date;
+   minPayment: number;
 }
 

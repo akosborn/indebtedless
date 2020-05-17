@@ -1,6 +1,7 @@
 import React from "react";
 import {getNumberOfPayments, getPayoffAmount} from "./FinanceUtils";
 import {Table} from "semantic-ui-react";
+import StackedBarChart from "../charts/StackedBarChart";
 
 interface Props {
    balance: number;
@@ -12,6 +13,7 @@ function MediaGallery(props: Props) {
    const numPayments = getNumberOfPayments(props.balance, props.rate, props.payment);
    return (
       <div>
+         <StackedBarChart/>
          <div>
             <b><p>Months</p></b>
             <p>{numPayments}</p>
