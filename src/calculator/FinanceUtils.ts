@@ -13,37 +13,71 @@ interface Snapshot {
    id: number;
    debtName: string;
    principal: number;
+   payment: number;
 }
 
-interface Schedule {
-   [name: string]: Snapshot;
+export interface Schedule {
+   [name: string]: Snapshot[];
 }
 
-function getSchedule(debts: Debt[], budget: number): Schedule {
-   const byRateAsc: Debt[] = sortBy(debts, d => d.rate);
-   const schedule: Schedule = debts.reduce((newObj, d) => {
-      newObj[d.name] = {
-         debtName: d.name,
-         id: 0,
-         principal: d.principal
-      };
-      return newObj;
-   }, {} as Schedule);
-   return getPaymentSchedule(byRateAsc, budget, schedule);
+export function getSchedule(debts: Debt[], budget: number): Schedule {
+   const byRateDesc: Debt[] = sortBy(debts, d => d.rate).reverse();
+   return getPaymentSchedule(byRateDesc, budget, {}, 0);
 }
 
-export function getPaymentSchedule(debts: Debt[], budget: number, schedule: Schedule): Schedule {
-   const minPayments: number = sumBy(debts, d => d.minPayment);
+function getPaymentSchedule(debts: Debt[], budget: number, schedule: Schedule, paymentNumber: number): Schedule {
+   const minPayments: number = !paymentNumber ?
+       sumBy(debts, d => min([d.minPayment, d.principal]) || 0) :
+       sumBy(debts, d => min([d.minPayment, schedule[d.name][paymentNumber - 1]?.principal || 0]) || 0);
    let excess: number = budget - minPayments;
 
-   debts.forEach(d => {
-      const principal = schedule[d.name].principal;
-      if (principal < d.minPayment) {
-
+   const getActualPayment = (balance: number, minPayment: number): number => {
+      if (excess > 0) {
+         const remainingAfterMinPayment = balance - minPayment;
+         if (remainingAfterMinPayment > 0) {
+            const excessToApply: number = parseFloat(min([remainingAfterMinPayment, excess])?.toFixed(2) || '0') || 0;
+            excess-= excessToApply;
+            return minPayment + excessToApply;
+         } else {
+            return minPayment;
+         }
+      } else {
+         return minPayment;
       }
+   };
 
-      const payment = min([principal, (d.minPayment + excess)]);
-   });
-
-   return {};
+   if (minPayments > 0) {
+      debts.forEach(d => {
+         const monthlyInterestRate: number = d.rate / 12;
+         if (!paymentNumber) {
+            const minPayment: number = min([d.minPayment, d.principal]) || 0;
+            const actualPayment: number = getActualPayment(d.principal, minPayment);
+            const principalAfterPayment: number = d.principal - actualPayment;
+            const interest: number = parseFloat((monthlyInterestRate * principalAfterPayment).toFixed(2));
+            schedule[d.name] = [];
+            schedule[d.name][0] = {
+               id: 0,
+               debtName: d.name,
+               payment: actualPayment,
+               principal: parseFloat((principalAfterPayment + interest).toFixed(2))
+            };
+         } else {
+            const prevSnap: Snapshot | undefined = schedule[d.name][paymentNumber - 1];
+            if (prevSnap && prevSnap.principal > 0) {
+               const minPayment: number = min([d.minPayment, prevSnap.principal]) || 0;
+               const actualPayment: number =  getActualPayment(prevSnap.principal, minPayment);
+               const principalAfterPayment: number = prevSnap.principal - actualPayment;
+               const interest: number = parseFloat((monthlyInterestRate * principalAfterPayment).toFixed(2));
+               schedule[d.name][paymentNumber] = {
+                  id: paymentNumber,
+                  debtName: d.name,
+                  payment: actualPayment,
+                  principal: parseFloat((principalAfterPayment + interest).toFixed(2))
+               };
+            }
+         }
+      });
+      return getPaymentSchedule(debts, budget, schedule, paymentNumber + 1);
+   }
+   return schedule;
 }

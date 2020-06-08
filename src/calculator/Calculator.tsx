@@ -5,18 +5,20 @@ import MediaGallery from "./MediaGallery";
 import {Debt} from "../models/Debt";
 
 function Calculator() {
-   const [balance, setBalance] = useState(0);
-   const [payment, setPayment] = useState(0);
-   const [rate, setRate] = useState(0);
    const [debts, setDebts] = useState([] as Debt[]);
 
    return (
       <Grid columns={2} divided>
          <Grid.Column width={3}>
-            <DebtPanel deleteDebt={name => setDebts(deleteDebtByName(debts, name))} debts={debts} addDebt={debt => setDebts(addDebt(debts, debt))} balance={balance} setBalance={setBalance} payment={payment} setPayment={setPayment} rate={rate} setRate={setRate} />
+            <DebtPanel deleteDebt={name => setDebts(deleteDebtByName(debts, name))}
+                       debts={debts}
+                       addDebt={debt => setDebts(addDebt(debts, debt))}
+            />
          </Grid.Column>
          <Grid.Column width={13}>
-            <MediaGallery balance={balance} payment={payment} rate={rate / 100 / 12} />
+            <MediaGallery budget={998.90}
+                          debts={debts}
+            />
          </Grid.Column>
       </Grid>
    );

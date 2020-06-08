@@ -6,12 +6,6 @@ import styles from './DebtPanel.module.css';
 import {sumBy} from 'lodash';
 
 interface Props {
-   balance: number;
-   setBalance: (v: number) => void;
-   payment: number;
-   setPayment: (v: number) => void;
-   rate: number;
-   setRate: (v: number) => void;
    debts: Debt[];
    addDebt: (d: Debt) => void;
    deleteDebt: (name: string) => void;
@@ -27,7 +21,7 @@ function DebtPanel(props: Props) {
                   <Grid columns={2}>
                      <Grid.Column width={10}>
                         <div>{d.name}</div>
-                        <div>${d.principal} at {d.rate}%</div>
+                        <div>${d.principal} at {d.rate * 100}%</div>
                      </Grid.Column>
                      <Grid.Column width={6} style={{ verticalAlign: 'middle', display: 'flex', justifyContent: 'flex-end'}}>
                         <Button icon>

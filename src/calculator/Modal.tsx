@@ -11,7 +11,7 @@ function FormModal(props: Props) {
    const [name, setName] = useState("");
    const [principal, setPrincipal] = useState(0);
    const [minPayment, setMinPayment] = useState(0);
-   const [rate, setRate] = useState(0);
+   const [rate, setRate] = useState<number>(0);
 
    const clear = () => {
       setName("");
@@ -61,7 +61,7 @@ function FormModal(props: Props) {
                              setIsOpen(false);
                              props.addDebt({
                                 name,
-                                rate,
+                                rate: rate * 0.01,
                                 minPayment,
                                 principal
                              });

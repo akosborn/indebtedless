@@ -1,29 +1,14 @@
 import React from 'react';
-import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis, Point} from 'recharts';
+import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
 
-interface BarSection {
-   id: string;
-   value: number;
+interface Props {
+   data: {name: string, value: number}[];
 }
 
-interface BarData {
-   name: string;
-   value: number;
-}
-
-const data: BarData[] = [
-   {name: 'Month 1', value: 500 },
-   {name: 'Month 2', value: 450 },
-   {name: 'Month 3', value: 370 },
-   {name: 'Month 4', value: 250 },
-   {name: 'Month 5', value: 120 },
-   {name: 'Month 6', value: 10 },
-];
-
-function StackedBarChart() {
+function StackedBarChart(props: Props) {
    return (
       <ResponsiveContainer width={'100%'} height={300}>
-         <BarChart data={data}>
+         <BarChart data={props.data}>
             <CartesianGrid strokeDasharray="3 3"/>
             <XAxis dataKey="name"/>
             <YAxis/>
