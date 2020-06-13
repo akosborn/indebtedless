@@ -20,8 +20,7 @@ jobs:
     executor:
       name: node/default
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
       - node/with-cache:
           steps:
             - run: yarn build
