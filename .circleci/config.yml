@@ -1,10 +1,9 @@
 version: 2.1
+
 orbs:
   node: circleci/node@1.1.6
 jobs:
   install-and-test:
-    executor:
-      name: node/default
     steps:
       - checkout
       - node/with-cache:
@@ -12,16 +11,14 @@ jobs:
             - run: yarn install
             - run: yarn test
             - persist_to_workspace:
-                root: ~/repo
+                root: .
                 paths: .
   build:
-    executor:
-      name: node/default
     steps:
       - node/with-cache:
           steps:
             - attach_workspace:
-                at: ~/repo
+                at: .
             - run: yarn build
             - run: tar -zcf indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz ./build
 workflows:
