@@ -37,6 +37,7 @@ jobs:
       - run: ssh-keyscan 142.93.5.41 >> ~/.ssh/known_hosts
       - attach_workspace:
           at: .
+      - run: ls -lsa
       - run:
           name: "Deploy to digital ocean server"
           command: |
