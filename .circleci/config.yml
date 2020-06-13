@@ -21,7 +21,7 @@ jobs:
           steps:
             - run: yarn build
             - run: mkdir out
-            - run: tar -zcf .out/indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz ./build
+            - run: tar -zcf ./out/indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz ./build
             - run: ls -lsa
             - persist_to_workspace:
                 root: .
