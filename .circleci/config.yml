@@ -26,6 +26,8 @@ jobs:
                 paths:
                   - ./indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz
   deploy:
+    executor:
+      name: node/default
     steps:
       - add_ssh_keys:
           fingerprints:
