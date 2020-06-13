@@ -1,5 +1,5 @@
 import React from "react";
-import {getPayoffAmount, getSchedule, Schedule} from "./FinanceUtils";
+import {getSchedule, Schedule} from "./FinanceUtils";
 import {Table} from "semantic-ui-react";
 import StackedBarChart from "../charts/StackedBarChart";
 import {Debt} from "../models/Debt";
@@ -17,7 +17,7 @@ function MediaGallery(props: Props) {
       .map((_, index: number) => {
          return {
             name: `Month ${index}`,
-            value: sum(keys(schedule).map(s => schedule[s][index]?.principal || 0))
+            value: parseFloat(sum(keys(schedule).map(s => schedule[s][index]?.principal || 0)).toFixed(2))
          }
       });
 
@@ -31,7 +31,7 @@ function MediaGallery(props: Props) {
          <Table celled>
             <Table.Header>
                <Table.Row>
-                  <Table.HeaderCell>ID</Table.HeaderCell>
+                  <Table.HeaderCell>Month</Table.HeaderCell>
                   <Table.HeaderCell>Total Balance</Table.HeaderCell>
                   {props.debts.map(d =>
                      <>
@@ -46,35 +46,19 @@ function MediaGallery(props: Props) {
                {[...Array(payPeriods)].map((_, i) => {
                   return (
                      <Table.Row>
-                        <Table.Cell>{i}</Table.Cell>
+                        <Table.Cell>{i + 1}</Table.Cell>
                         <Table.Cell>0</Table.Cell>
                         {props.debts.map(d =>
                            <>
-                              <Table.Cell>{schedule[d.name][i]?.principal || 0}</Table.Cell>
-                              <Table.Cell>{schedule[d.name][i]?.payment || 0}</Table.Cell>
+                              <Table.Cell>{schedule[d.name][i]?.principal?.toFixed(2) || 0}</Table.Cell>
+                              <Table.Cell>{schedule[d.name][i]?.payment?.toFixed(2) || 0}</Table.Cell>
                            </>
                         )}
                      </Table.Row>
                   );
                })}
             </Table.Body>
-
-            {/* <Table.Body>*/}
-            {/*   {[...Array(Math.floor(numPayments) || 0)].map((_, i) =>*/}
-            {/*      <Table.Row>*/}
-            {/*         <Table.Cell>{i + 1}</Table.Cell>*/}
-            {/*         <Table.Cell>{getPayoffAmount(props.balance, props.rate, i + 1, props.payment)}</Table.Cell>*/}
-            {/*         <Table.Cell>{(getPayoffAmount(props.balance, props.rate, i + 1, props.payment) * props.rate).toFixed(2)}</Table.Cell>*/}
-            {/*         <Table.Cell>{(((getPayoffAmount(props.balance, props.rate, i + 1, props.payment) * props.rate) / props.payment) * 100).toFixed()}</Table.Cell>*/}
-            {/*      </Table.Row>*/}
-            {/*   )}*/}
-            {/*</Table.Body>*/}
          </Table>
-
-         {/*<div>*/}
-         {/*   <b><p>Final Payment</p></b>*/}
-         {/*   <p>{getPayoffAmount(props.balance, props.rate, Math.floor(numPayments), props.payment)}</p>*/}
-         {/*</div>*/}
       </div>
    );
 }
