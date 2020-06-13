@@ -21,10 +21,11 @@ jobs:
           steps:
             - run: yarn build
             - run: tar -zcf indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz ./build
+            - run: ls -lsa
             - persist_to_workspace:
                 root: .
                 paths:
-                  - ./indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz
+                  - indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz
   deploy:
     executor:
       name: node/default
