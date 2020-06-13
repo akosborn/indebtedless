@@ -20,10 +20,10 @@ jobs:
     executor:
       name: node/default
     steps:
+      - attach_workspace:
+          at: .
       - node/with-cache:
           steps:
-            - attach_workspace:
-                at: .
             - run: yarn build
             - run: tar -zcf indebtedless-$CIRCLE_TAG.$CIRCLE_BUILD_NUM.tar.gz ./build
 workflows:
