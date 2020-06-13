@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="247f3f9b-67ef-4fa6-9a06-078749d9b599" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/Calculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/Calculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/DebtPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/DebtPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/FinanceUtils.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/FinanceUtils.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/FinanceUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/FinanceUtils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/calculator/MediaGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/MediaGallery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/calculator/Modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/calculator/Modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/charts/StackedBarChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/charts/StackedBarChart.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +90,8 @@
       <workItem from="1589726877916" duration="22041000" />
       <workItem from="1591551761387" duration="84000" />
       <workItem from="1591551861170" duration="7065000" />
-      <workItem from="1591563925086" duration="7516000" />
+      <workItem from="1591563925086" duration="10220000" />
+      <workItem from="1592062938705" duration="716000" />
     </task>
     <servers />
   </component>
