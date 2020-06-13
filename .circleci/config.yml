@@ -27,6 +27,7 @@ jobs:
                 root: .
                 paths:
                   - out
+                  - build
   deploy:
     executor:
       name: node/default
@@ -41,7 +42,8 @@ jobs:
       - run:
           name: "Deploy to digital ocean server"
           command: |
-            scp ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/var/www/indebtedless.com/
+            rsync -r --delete-after --quiet ./build root@142.93.5.41:/var/www/indebtedless.com/
+            scp ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/root/dist/indebtedless/
 
 workflows:
   build-and-deploy:
