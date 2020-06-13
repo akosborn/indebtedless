@@ -34,6 +34,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "74:06:b1:7e:14:88:7a:48:9f:15:7d:56:ea:05:09:6a"
+      - run: ssh-keyscan 142.93.5.41 >> ~/.ssh/known_hosts
       - attach_workspace:
           at: .
       - run:
