@@ -38,6 +38,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: ls -lsa
+      - run: ls -lss ./out
       - run:
           name: "Deploy to digital ocean server"
           command: |
