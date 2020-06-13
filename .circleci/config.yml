@@ -21,12 +21,12 @@ jobs:
           steps:
             - run: yarn build
             - run: mkdir out
-            - run: tar -zcf ./indebtedless-$CIRCLE_TAG.<< pipeline.id >>.tar.gz ./build
+            - run: tar -zcf ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz ./build
             - run: ls -lsa
             - persist_to_workspace:
                 root: .
                 paths:
-                  - indebtedless-$CIRCLE_TAG.<< pipeline.id >>.tar.gz
+                  - out
   deploy:
     executor:
       name: node/default
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: "Deploy to digital ocean server"
           command: |
-            scp ./indebtedless-$CIRCLE_TAG.<< pipeline.id >>.tar.gz root@142.93.5.41:/var/www/indebtedless.com/
+            scp ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/var/www/indebtedless.com/
 
 workflows:
   build-and-deploy:
