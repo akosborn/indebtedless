@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="247f3f9b-67ef-4fa6-9a06-078749d9b599" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +40,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="ts.external.directory.path" value="C:\Users\andre\Documents\Programming\React\indebtedless\node_modules\typescript\lib" />
   </component>
@@ -92,7 +92,7 @@
       <workItem from="1591551761387" duration="84000" />
       <workItem from="1591551861170" duration="7065000" />
       <workItem from="1591563925086" duration="10220000" />
-      <workItem from="1592062938705" duration="3303000" />
+      <workItem from="1592062938705" duration="3703000" />
     </task>
     <servers />
   </component>
@@ -108,6 +108,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="444" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591552230836" />
+    <state x="-1206" y="374" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592066598568">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1206" y="374" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1592066598568" />
     <state x="-1180" y="275" key="FileChooserDialogImpl" timestamp="1592064330256">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
