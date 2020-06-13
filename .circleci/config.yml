@@ -4,6 +4,8 @@ orbs:
   node: circleci/node@1.1.6
 jobs:
   install-and-test:
+    executor:
+      name: node/default
     steps:
       - checkout
       - node/with-cache:
@@ -15,6 +17,8 @@ jobs:
                 paths:
                   - .
   build:
+    executor:
+      name: node/default
     steps:
       - node/with-cache:
           steps:
