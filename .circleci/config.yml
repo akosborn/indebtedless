@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
 jobs:
-  build-and-test:
+  install-and-test:
     executor:
       name: node/default
     steps:
@@ -11,7 +11,18 @@ jobs:
           steps:
             - run: yarn install
             - run: yarn test
+  build:
+    executor:
+      name: node/default
+    steps:
+      - node/with-cache:
+          steps:
+            - run: yarn build
+            - run: tar -zcf indebtedless.tar.gz ./build
 workflows:
-    build-and-test:
+    build-and-deploy:
       jobs:
-        - build-and-test
+        - install-and-test
+            filters:
+              tags:
+                only: /^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
