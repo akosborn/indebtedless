@@ -42,7 +42,10 @@ jobs:
       - run:
           name: "Deploy to digital ocean server"
           command: |
-            scp ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/root/dist/indebtedless/
+            scp ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/root/dist/indebtedless/- run:
+      - run:
+          name: "Unzip"
+          command: |
             tar -C root@142.93.5.41:/var/www/indebtedless.com/ -xzvf root@142.93.5.41:/root/dist/indebtedless/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/var/www/indebtedless.com/
 
 workflows:
