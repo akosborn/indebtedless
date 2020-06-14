@@ -46,7 +46,7 @@ jobs:
       - run:
           name: "Unzip"
           command: |
-            ssh root@142.93.5.41 "tar -C /var/www/indebtedless.com/ -xzvf /root/dist/indebtedless/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz /var/www/indebtedless.com/"
+            ssh root@142.93.5.41 "tar -C /var/www/indebtedless.com/ -xzvf /root/dist/indebtedless/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz"
 
 workflows:
   build-and-deploy:
