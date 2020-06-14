@@ -1,0 +1,75 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  install-and-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: yarn install
+            - run: yarn test
+  build:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: yarn build
+            - run: mkdir out
+            - run: tar -C build -zcf ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz .
+            - run: ls -lsa
+            - persist_to_workspace:
+                root: .
+                paths:
+                  - out
+                  - build
+  deploy:
+    executor:
+      name: node/default
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "74:06:b1:7e:14:88:7a:48:9f:15:7d:56:ea:05:09:6a"
+      - run: ssh-keyscan 142.93.5.41 >> ~/.ssh/known_hosts
+      - attach_workspace:
+          at: .
+      - run: sudo apt install rsync
+      - run:
+          name: "Deploy to digital ocean server"
+          command: |
+            scp ./out/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz root@142.93.5.41:/root/dist/indebtedless/
+      - run:
+          name: "Unzip"
+          command: |
+            ssh root@142.93.5.41 "tar -xzvf /root/dist/indebtedless/indebtedless-$CIRCLE_TAG.<< pipeline.number >>.tar.gz -C /var/www/indebtedless.com/"
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - install-and-test:
+          filters:
+            tags:
+              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
+            branches:
+              ignore: /.*/
+      - build:
+          requires:
+            - install-and-test
+          filters:
+            tags:
+              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
+            branches:
+              ignore: /.*/
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
+            branches:
+              ignore: /.*/
