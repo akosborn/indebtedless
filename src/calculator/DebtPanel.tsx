@@ -1,7 +1,7 @@
 import React from "react";
 import FormModal from "./Modal";
 import {Debt} from "../models/Debt";
-import {Button, Card, Grid, Icon} from "semantic-ui-react";
+import {Button, Card, Form, Grid, Icon, Input, Label} from "semantic-ui-react";
 import styles from './DebtPanel.module.css';
 import {sumBy} from 'lodash';
 
@@ -9,11 +9,21 @@ interface Props {
    debts: Debt[];
    addDebt: (d: Debt) => void;
    deleteDebt: (name: string) => void;
+   budget: number;
+   setBudget: (n: number) => void;
 }
 
 function DebtPanel(props: Props) {
    return (
       <div>
+         <Form.Field>
+            <label>Budget</label>
+            <Input labelPosition='right' type='number' placeholder='Principal'>
+               <Label basic>$</Label>
+               <input value={props.budget} onChange={e => props.setBudget(e.target.valueAsNumber)} />
+               <Label>.00</Label>
+            </Input>
+         </Form.Field>
          <Card className={styles.card}>
             <Card.Content header='Loans' />
             {props.debts.map(d =>
