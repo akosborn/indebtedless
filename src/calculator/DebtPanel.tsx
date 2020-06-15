@@ -36,9 +36,6 @@ function DebtPanel(props: Props) {
                         <div>${d.principal} at {d.rate * 100}%</div>
                      </Grid.Column>
                      <Grid.Column width={6} style={{ verticalAlign: 'middle', display: 'flex', justifyContent: 'flex-end'}}>
-                        <Button icon>
-                           <Icon name='edit' />
-                        </Button>
                         <Button icon onClick={() => props.deleteDebt(d.name)}>
                            <Icon name='delete' />
                         </Button>
