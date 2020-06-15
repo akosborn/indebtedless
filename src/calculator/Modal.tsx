@@ -4,14 +4,19 @@ import {Debt} from "../models/Debt";
 
 interface Props {
    addDebt: (d: Debt) => void;
+   name?: string;
+   updateDebt?: (d: Debt) => void;
+   principal?: number;
+   minPayment?: number;
+   rate?: number;
 }
 
 function FormModal(props: Props) {
-   const [isOpen, setIsOpen] = useState(false);
-   const [name, setName] = useState("");
-   const [principal, setPrincipal] = useState(0);
-   const [minPayment, setMinPayment] = useState(0);
-   const [rate, setRate] = useState<number>(0);
+   const [isOpen, setIsOpen] = useState<boolean>(false);
+   const [name, setName] = useState<string | undefined>(props.name);
+   const [principal, setPrincipal] = useState<number>(props.principal || 0);
+   const [minPayment, setMinPayment] = useState<number>(props.minPayment || 0);
+   const [rate, setRate] = useState<number>(props.rate || 0);
 
    const clear = () => {
       setName("");
@@ -56,19 +61,21 @@ function FormModal(props: Props) {
                         placeholder='Interest rate'
                      />
                   </Form.Field>
-                  <Button type='submit'
-                          onClick={() => {
-                             setIsOpen(false);
-                             props.addDebt({
-                                name,
-                                rate: rate * 0.01,
-                                minPayment,
-                                principal
-                             });
-                             clear();
-                          }}>
-                     Add
-                  </Button>
+                  {!props.updateDebt &&
+                     <Button type='submit'
+                             onClick={() => {
+                                setIsOpen(false);
+                                props.addDebt({
+                                   name: name || '',
+                                   rate: rate * 0.01,
+                                   minPayment,
+                                   principal
+                                });
+                                clear();
+                             }}>
+                         Add
+                     </Button>
+                  }
                </Form>
             </Modal.Description>
          </Modal.Content>
