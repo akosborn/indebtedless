@@ -15,15 +15,17 @@ interface Props {
 
 function DebtPanel(props: Props) {
    return (
-      <div>
-         <Form.Field>
-            <label>Budget</label>
-            <Input labelPosition='right' type='number' placeholder='Principal'>
-               <Label basic>$</Label>
-               <input value={props.budget} onChange={e => props.setBudget(e.target.valueAsNumber)} />
-               <Label>.00</Label>
-            </Input>
-         </Form.Field>
+      <div className={styles.root}>
+         <Form>
+            <Form.Field>
+               <label>Monthly Budget</label>
+               <Input labelPosition='right' type='number' placeholder='Budget'>
+                  <Label basic>$</Label>
+                  <input value={props.budget} onChange={e => props.setBudget(e.target.valueAsNumber)} />
+                  <Label>.00</Label>
+               </Input>
+            </Form.Field>
+         </Form>
          <Card className={styles.card}>
             <Card.Content header='Loans' />
             {props.debts.map(d =>

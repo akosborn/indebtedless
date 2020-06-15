@@ -1,3 +1,7 @@
+.root {
+    text-align: initial;
+}
+
 .card {
     width: 100% !important;
     text-align: left;
