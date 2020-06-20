@@ -18,20 +18,6 @@ function FormModal(props: Props) {
    const [minPayment, setMinPayment] = useState<number>(props.minPayment || 0);
    const [rate, setRate] = useState<number>(props.rate || 0);
 
-   useEffect(() => {
-      setName(props.name || name);
-      setPrincipal(props.principal || principal);
-      setMinPayment(props.minPayment || minPayment);
-      setRate(props.rate || rate);
-   }, [props.name, props.principal, props.minPayment, props.rate]);
-
-   const clear = () => {
-      setName('');
-      setPrincipal(0);
-      setMinPayment(0);
-      setRate(0);
-   };
-
    const saveDebt = () => {
       if (props.name) {
          props.upsertDebt({
@@ -42,6 +28,31 @@ function FormModal(props: Props) {
          });
       }
    }
+
+   useEffect(() => {
+      setName(props.name || '');
+   }, [props.name]);
+
+   useEffect(() => {
+      setPrincipal(props.principal || 0);
+   }, [props.principal]);
+
+   useEffect(() => {
+      setMinPayment(props.minPayment || 0);
+   }, [props.minPayment]);
+
+   useEffect(() => {
+      setRate(props.rate || 0);
+   }, [props.rate]);
+
+   useEffect(saveDebt, [name, principal, minPayment, rate]);
+
+   const clear = () => {
+      setName('');
+      setPrincipal(0);
+      setMinPayment(0);
+      setRate(0);
+   };
 
    return (
       <Modal trigger={<Button onClick={() => props.setIsOpen(true)}>Add</Button>}
@@ -57,7 +68,6 @@ function FormModal(props: Props) {
                      <input value={name}
                             onChange={e => {
                                setName(e.target.value);
-                               saveDebt();
                             }}
                             placeholder='Name'
                      />
@@ -69,7 +79,6 @@ function FormModal(props: Props) {
                         <input value={principal}
                                onChange={e => {
                                   setPrincipal(e.target.valueAsNumber);
-                                  saveDebt();
                                }}
                         />
                      </Input>
@@ -81,7 +90,6 @@ function FormModal(props: Props) {
                         <input value={minPayment}
                                onChange={e => {
                                   setMinPayment(e.target.valueAsNumber);
-                                  saveDebt();
                                }}
                         />
                      </Input>
@@ -93,7 +101,6 @@ function FormModal(props: Props) {
                         type='number'
                         onChange={e => {
                            setRate(e.target.valueAsNumber);
-                           saveDebt();
                         }}
                         label={{ basic: true, content: '%' }}
                         labelPosition='right'

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import FormModal from "./Modal";
+import FormModal from "./FormModal";
 import {Debt} from "../models/Debt";
 import {Button, Card, Grid, Icon, Input, Label} from "semantic-ui-react";
 import styles from './DebtPanel.module.css';

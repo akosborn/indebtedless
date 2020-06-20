@@ -28,6 +28,7 @@ function Calculator() {
 }
 
 function upsertDebt(debts: Debt[], newDebt: Debt): Debt[] {
+   debugger;
    const index: number = debts.findIndex(d => d.name === newDebt.name);
    if (index > -1) {
       const copy: Debt[] = debts.slice(0);
