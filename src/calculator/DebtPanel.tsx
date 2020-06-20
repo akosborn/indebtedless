@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import FormModal from "./FormModal";
 import {Debt} from "../models/Debt";
 import {Button, Card, Grid, Icon, Input, Label} from "semantic-ui-react";
 import styles from './DebtPanel.module.css';
 import {sumBy} from 'lodash';
+import FormModal from "./FormModal";
 
 interface Props {
    debts: Debt[];
@@ -59,6 +59,7 @@ function DebtPanel(props: Props) {
                   <FormModal isOpen={isOpen}
                              setIsOpen={setIsOpen}
                              upsertDebt={props.upsertDebt}
+                             onClose={() => setDebtToEdit(undefined)}
                              {...debtToEdit}
                   />
                </span>

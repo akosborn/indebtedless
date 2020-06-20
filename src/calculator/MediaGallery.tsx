@@ -48,7 +48,7 @@ function MediaGallery(props: Props) {
                   return (
                      <Table.Row>
                         <Table.Cell>{moment().add(i + 1, 'month').format("MMM 'YY")}</Table.Cell>
-                        <Table.Cell>{sum(props.debts.map(d => schedule[d.name][i].principal))}</Table.Cell>
+                        <Table.Cell>{sum(props.debts.map(d => schedule[d.name][i]?.principal || 0))}</Table.Cell>
                         {props.debts.map(d =>
                            <>
                               <Table.Cell>{schedule[d.name][i]?.principal?.toFixed(2) || 0}</Table.Cell>

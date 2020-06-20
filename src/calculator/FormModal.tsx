@@ -10,6 +10,7 @@ interface Props {
    upsertDebt: (d: Debt) => void;
    isOpen: boolean;
    setIsOpen: (o: boolean) => void;
+   onClose: () => void;
 }
 
 function FormModal(props: Props) {
@@ -57,7 +58,10 @@ function FormModal(props: Props) {
    return (
       <Modal trigger={<Button onClick={() => props.setIsOpen(true)}>Add</Button>}
              open={props.isOpen}
-             onClose={() => props.setIsOpen(false)}
+             onClose={() => {
+                props.setIsOpen(false);
+                props.onClose();
+             }}
              size='small'
       >
          <Modal.Content image>
