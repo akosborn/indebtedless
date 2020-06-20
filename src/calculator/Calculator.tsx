@@ -13,7 +13,7 @@ function Calculator() {
          <Grid.Column width={3}>
             <DebtPanel deleteDebt={name => setDebts(deleteDebtByName(debts, name))}
                        debts={debts}
-                       addDebt={debt => setDebts(addDebt(debts, debt))}
+                       upsertDebt={debt => setDebts(upsertDebt(debts, debt))}
                        budget={budget}
                        setBudget={setBudget}
             />
@@ -27,8 +27,15 @@ function Calculator() {
    );
 }
 
-function addDebt(debts: Debt[], newDebt: Debt): Debt[] {
-   return [...debts, newDebt];
+function upsertDebt(debts: Debt[], newDebt: Debt): Debt[] {
+   const index: number = debts.findIndex(d => d.name === newDebt.name);
+   if (index > -1) {
+      const copy: Debt[] = debts.slice(0);
+      copy[index] = newDebt;
+      return copy;
+   } else {
+      return [...debts, newDebt];
+   }
 }
 
 function deleteDebtByName(debts: Debt[], nameToDelete: string): Debt[] {
