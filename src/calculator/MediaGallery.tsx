@@ -16,7 +16,7 @@ function MediaGallery(props: Props) {
    const balanceByMonth: {name: string, value: number}[] = [...Array(payPeriods)]
       .map((_, index: number) => {
          return {
-            name: `Month ${index}`,
+            name: `Month ${index + 1}`,
             value: parseFloat(sum(keys(schedule).map(s => schedule[s][index]?.principal || 0)).toFixed(2))
          }
       });

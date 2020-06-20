@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import FormModal from "./Modal";
 import {Debt} from "../models/Debt";
-import {Button, Card, Form, Grid, Icon, Input, Label} from "semantic-ui-react";
+import {Button, Card, Grid, Icon, Input, Label} from "semantic-ui-react";
 import styles from './DebtPanel.module.css';
 import {sumBy} from 'lodash';
 
@@ -19,20 +19,15 @@ function DebtPanel(props: Props) {
 
    return (
       <div className={styles.root}>
-         <Form>
-            <Form.Field>
-               <label>Monthly Budget</label>
-               <Input labelPosition='right' type='number' placeholder='Budget'>
-                  <Label basic>$</Label>
-                  <input value={props.budget}
-                         onChange={e => props.setBudget(e.target.valueAsNumber)}
-
-                         min={sumBy(props.debts, d => d.minPayment)}
-                  />
-                  <Label>.00</Label>
-               </Input>
-            </Form.Field>
-         </Form>
+         <label>Monthly Budget</label>
+         <Input labelPosition='right' type='number' placeholder='Budget'>
+            <Label basic>$</Label>
+            <Input value={props.budget}
+                   onChange={(e, {value}) => props.setBudget(parseFloat(value))}
+                   error={sumBy(props.debts, d => d.minPayment) > props.budget}
+            />
+            <Label>.00</Label>
+         </Input>
          <Card className={styles.card}>
             <Card.Content header='Loans' />
             {props.debts.map(d =>
