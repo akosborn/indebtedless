@@ -9,12 +9,12 @@ function StackedBarChart(props: Props) {
    return (
       <ResponsiveContainer width={'100%'} height={300}>
          <BarChart data={props.data}>
-            <CartesianGrid strokeDasharray="3 3"/>
-            <XAxis dataKey="name" />
-            <YAxis/>
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={false} />
+            <XAxis dataKey="name" axisLine={false} />
+            <YAxis axisLine={false} />
             <Tooltip/>
             <Legend />
-            <Bar dataKey='value' stackId="a" fill="#8884d8" />
+            <Bar dataKey='value' stackId="a" fill="#003f5c" />
          </BarChart>
       </ResponsiveContainer>
    );

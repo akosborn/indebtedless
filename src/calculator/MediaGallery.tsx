@@ -4,6 +4,7 @@ import {Table} from "semantic-ui-react";
 import StackedBarChart from "../charts/StackedBarChart";
 import {Debt} from "../models/Debt";
 import {keys, max, sum, values} from 'lodash';
+import moment from "moment";
 
 interface Props {
    debts: Debt[];
@@ -16,7 +17,7 @@ function MediaGallery(props: Props) {
    const balanceByMonth: {name: string, value: number}[] = [...Array(payPeriods)]
       .map((_, index: number) => {
          return {
-            name: `Month ${index + 1}`,
+            name: moment().add(index + 1, 'month').format("MMM 'YY"),
             value: parseFloat(sum(keys(schedule).map(s => schedule[s][index]?.principal || 0)).toFixed(2))
          }
       });
@@ -46,8 +47,8 @@ function MediaGallery(props: Props) {
                {[...Array(payPeriods)].map((_, i) => {
                   return (
                      <Table.Row>
-                        <Table.Cell>{i + 1}</Table.Cell>
-                        <Table.Cell>0</Table.Cell>
+                        <Table.Cell>{moment().add(i + 1, 'month').format("MMM 'YY")}</Table.Cell>
+                        <Table.Cell>{sum(props.debts.map(d => schedule[d.name][i].principal))}</Table.Cell>
                         {props.debts.map(d =>
                            <>
                               <Table.Cell>{schedule[d.name][i]?.principal?.toFixed(2) || 0}</Table.Cell>
