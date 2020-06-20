@@ -31,21 +31,22 @@ test('payment schedule', () => {
 
 test('payment schedule', () => {
    expect(getSchedule([
-      { name: 'A', rate: 0.25, principal: 2, minPayment: 1 },
-      { name: 'B', rate: 0.5, principal: 2, minPayment: 1 },
-      { name: 'C', rate: 0.75, principal: 2, minPayment: 1 },
-      ], 4))
+      { name: 'A', rate: 25, principal: 100, minPayment: 10 },
+      { name: 'B', rate: 5, principal: 100, minPayment: 10 },
+      { name: 'C', rate: 75, principal: 100, minPayment: 10 },
+      ], 120))
       .toEqual({
          'A': [
-            { id: 0, debtName: 'A', principal: 1.02, payment: 1 },
-            { id: 1, debtName: 'A', principal: 0, payment: 1.02 }
+            { id: 0, debtName: 'A', principal: 91.88, payment: 10 },
+            { id: 1, debtName: 'A', principal: 0, payment: 91.88 }
          ],
          'B': [
-            { id: 0, debtName: 'B', principal: 1.04, payment: 1 },
-            { id: 1, debtName: 'B', principal: 0, payment: 1.04 }
+            { id: 0, debtName: 'B', principal: 90.38, payment: 10 },
+            { id: 1, debtName: 'B', principal: 62.52, payment: 28.12 },
+            { id: 2, debtName: 'B', principal: 0, payment: 62.52 }
          ],
          'C': [
-            { id: 0, debtName: 'C', principal: 0, payment: 2 }
+            { id: 0, debtName: 'C', principal: 0, payment: 100 }
          ]
       })
 });

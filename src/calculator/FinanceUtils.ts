@@ -2,13 +2,11 @@ import {Debt} from "../models/Debt";
 import {min, sortBy, sumBy} from 'lodash';
 
 export function getPayoffAmount(originalBalance: number, rate: number, paymentsMade: number, paymentAmt: number): number {
-   const r = rate * 0.01;
-   return +(originalBalance * Math.pow(1 + r, paymentsMade) - ((paymentAmt / r) * (Math.pow(1 + r, paymentsMade) - 1))).toFixed(2);
+   return +(originalBalance * Math.pow(1 + rate, paymentsMade) - ((paymentAmt / rate) * (Math.pow(1 + rate, paymentsMade) - 1))).toFixed(2);
 }
 
 export function getNumberOfPayments(currentBalance: number, rate: number, paymentAmt: number): number {
-   const r = rate * 0.01;
-   return +(Math.log(Math.pow(1 - (currentBalance * r) / paymentAmt, (-1))) / Math.log(1 + r)).toFixed(2);
+   return +(Math.log(Math.pow(1 - (currentBalance * rate) / paymentAmt, (-1))) / Math.log(1 + rate)).toFixed(2);
 }
 
 interface Snapshot {
@@ -39,7 +37,7 @@ function getPaymentSchedule(debts: Debt[], budget: number, schedule: Schedule, p
          if (excess > 0) {
             const remainingAfterMinPayment = balance - minPayment;
             if (remainingAfterMinPayment > 0) {
-               const excessToApply: number = parseFloat(min([remainingAfterMinPayment, excess])?.toFixed(2) || '0') || 0;
+               const excessToApply: number = min([remainingAfterMinPayment, excess]) || 0;
                excess-= excessToApply;
                return minPayment + excessToApply;
             } else {
@@ -57,25 +55,25 @@ function getPaymentSchedule(debts: Debt[], budget: number, schedule: Schedule, p
                const minPayment: number = min([d.minPayment, d.principal]) || 0;
                const actualPayment: number = getActualPayment(d.principal, minPayment);
                const principalAfterPayment: number = d.principal - actualPayment;
-               const interest: number = parseFloat((monthlyInterestRate * principalAfterPayment).toFixed(2));
+               const interest: number = monthlyInterestRate * principalAfterPayment;
                schedule[d.name] = [];
                schedule[d.name][0] = {
                   id: 0,
                   debtName: d.name,
-                  payment: actualPayment,
+                  payment: parseFloat(actualPayment.toFixed(2)),
                   principal: parseFloat((principalAfterPayment + interest).toFixed(2))
                };
             } else {
                const prevSnap: Snapshot | undefined = schedule[d.name][paymentNumber - 1];
                if (prevSnap && prevSnap.principal > 0) {
                   const minPayment: number = min([d.minPayment, prevSnap.principal]) || 0;
-                  const actualPayment: number =  getActualPayment(prevSnap.principal, minPayment);
+                  const actualPayment: number = getActualPayment(prevSnap.principal, minPayment);
                   const principalAfterPayment: number = prevSnap.principal - actualPayment;
-                  const interest: number = parseFloat((monthlyInterestRate * principalAfterPayment).toFixed(2));
+                  const interest: number = monthlyInterestRate * principalAfterPayment;
                   schedule[d.name][paymentNumber] = {
                      id: paymentNumber,
                      debtName: d.name,
-                     payment: actualPayment,
+                     payment: parseFloat(actualPayment.toFixed(2)),
                      principal: parseFloat((principalAfterPayment + interest).toFixed(2))
                   };
                }
