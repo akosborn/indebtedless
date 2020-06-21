@@ -1,0 +1,8 @@
+:global(.firebaseui-list-item) {
+    margin-bottom: 0 !important;
+}
+
+:global(.firebaseui-idp-list) {
+    margin-top: 0;
+    margin-bottom: 0;
+}
