@@ -8,29 +8,18 @@ import classNames from "classnames";
 import {initFirebaseUI} from "./firebase/firebase";
 import {auth, User} from "firebase";
 import { Button } from 'semantic-ui-react';
+import * as firebaseui from 'firebaseui';
+import LoginModal from "./firebase/LoginModal";
 
 function App() {
    useEffect(() => {
-      const el = document.querySelector('#firebaseui');
-      if (el) {
-         initFirebaseUI(el);
-         setInitialized(true);
-      }
-
       auth().onAuthStateChanged(u => {
-            setUser(u || undefined);
-            if (!u && !initialized) {
-               const el = document.querySelector('#firebaseui');
-               if (el) {
-                  initFirebaseUI(el);
-               }
-            }
-         }
-      );
+         setUser(u || undefined);
+      });
    }, []);
 
    const [user, setUser] = useState<User>();
-   const [initialized, setInitialized] = useState<boolean>(false);
+   const [loginOpen, setLoginOpen] = useState<boolean>(false);
 
    return (
       <div>
@@ -45,13 +34,27 @@ function App() {
                position='right'
             >
                {user ?
-                  <Button onClick={() => auth().signOut()}>
+                  <Button onClick={() => {
+                     auth().signOut()
+                        .then(() => {
+                           firebaseui.auth.AuthUI.getInstance()?.delete()
+                              .then(d => {
+                                 const el = document.querySelector('#firebaseui');
+                                 if (el) {
+                                    initFirebaseUI(el);
+                                 }
+                              });
+                        })
+                  }}>
                      Logout
                   </Button> :
-                  <div id='firebaseui' />
+                  <Button onClick={() => setLoginOpen(true)}>
+                     Login
+                  </Button>
                }
             </Menu.Item>
          </ Menu>
+         {loginOpen && <LoginModal setIsOpen={setLoginOpen} />}
          <div className={classNames(styles.primaryContainer, 'App')}>
             <Calculator/>
          </div>

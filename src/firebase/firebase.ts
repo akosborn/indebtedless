@@ -22,11 +22,6 @@ firebase.analytics();
 export function initFirebaseUI(el: Element): void {
    const ui = new firebaseui.auth.AuthUI(firebase.auth());
    const uiConfig: firebaseui.auth.Config = {
-      callbacks: {
-         signInSuccessWithAuthResult() {
-            return false;
-         }
-      },
       signInOptions: [
          firebase.auth.GoogleAuthProvider.PROVIDER_ID
       ]

@@ -47,6 +47,7 @@
   "devDependencies": {
     "firebase": "^7.15.3",
     "firebaseui": "^4.5.1",
-    "moment": "^2.27.0"
+    "moment": "^2.27.0",
+    "react-firebaseui": "^4.1.0"
   }
 }
