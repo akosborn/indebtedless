@@ -15,7 +15,7 @@ interface Props {
 
 function DebtPanel(props: Props) {
    const [isOpen, setIsOpen] = useState<boolean>(false);
-   const [debtToEdit, setDebtToEdit] = useState<Debt | undefined>()
+   const [debtToEdit, setDebtToEdit] = useState<Debt | undefined>();
 
    return (
       <div className={styles.root}>

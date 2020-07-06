@@ -9,7 +9,7 @@ export function getNumberOfPayments(currentBalance: number, rate: number, paymen
    return +(Math.log(Math.pow(1 - (currentBalance * rate) / paymentAmt, (-1))) / Math.log(1 + rate)).toFixed(2);
 }
 
-interface Snapshot {
+export interface Snapshot {
    id: number;
    debtName: string;
    principal: number;

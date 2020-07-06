@@ -1,10 +1,11 @@
 import React from "react";
-import {getSchedule, Schedule} from "./FinanceUtils";
+import {getSchedule, Schedule, Snapshot} from "./FinanceUtils";
 import {Table} from "semantic-ui-react";
 import StackedBarChart from "../charts/StackedBarChart";
 import {Debt} from "../models/Debt";
 import {keys, max, sum, values} from 'lodash';
 import moment from "moment";
+import PaymentLineChart from "../charts/PaymentLineChart";
 
 interface Props {
    debts: Debt[];
@@ -22,9 +23,21 @@ function MediaGallery(props: Props) {
          }
       });
 
+   // ToDo: Move this logic to the payment line chart component
+   const paymentsByMonth: { [k: string]: number | string }[] = [...Array(payPeriods)]
+      .map((_, index) => {
+         const init: { [k: string]: number | string } = { name: moment().add(index + 1, 'month').format("MMM 'YY") };
+         return keys(schedule).reduce((prev, curr) => {
+            const snapshot: Snapshot | undefined = schedule[curr][index];
+            prev[curr] = snapshot?.payment || 0;
+            return prev;
+         }, init);
+      });
+
    return (
       <div>
          <StackedBarChart data={balanceByMonth}/>
+         <PaymentLineChart data={paymentsByMonth} />
          <div>
             <b><p>Months</p></b>
             <p>{payPeriods}</p>
